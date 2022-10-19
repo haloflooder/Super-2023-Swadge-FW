@@ -101,6 +101,7 @@ typedef enum
 void  slideWhistleEnterMode(display_t * disp);
 void  slideWhistleExitMode(void);
 void  slideWhistleButtonCallback(buttonEvt_t* evt);
+void  slideWhistleTouchCallback(touch_event_t* evt);
 void  slideWhistleAccelerometerHandler(accel_t* accel);
 void  slideWhistleMainLoop(int64_t elapsedUs);
 void  slideWhistleBeatTimerFunc(void* arg __attribute__((unused)));
@@ -160,6 +161,7 @@ swadgeMode modeSlideWhistle =
     .fnEnterMode = slideWhistleEnterMode,
     .fnExitMode = slideWhistleExitMode,
     .fnButtonCallback = slideWhistleButtonCallback,
+    .fnTouchCallback = slideWhistleTouchCallback,
     .fnMainLoop = slideWhistleMainLoop,
     .wifiMode = NO_WIFI,
     .fnEspNowRecvCb = NULL,
@@ -1038,7 +1040,26 @@ void  slideWhistleExitMode(void)
 
     free(slideWhistle);
 }
+/**
+ * @brief Touchpad callback function, plays notes depending on touchpad!
+ *
+ * @param evt The implementation to add controls using the touchpad
+ */
+void slideWhistleTouchCallback(touch_event_t* evt)
+{
+    if(false == slideWhistle->modifyBpm)
+    {
+        slideWhistle->rhythmNoteIdx = 0;
+        slideWhistle->lastCallTimeUs = 0;
+        slideWhistle->shouldPlay = evt->down;
+    }
+    else
+    {
+        slideWhistle->shouldPlay = false;
+    }
 
+    break;
+}
 /**
  * @brief Button callback function, plays notes and switches parameters
  *
