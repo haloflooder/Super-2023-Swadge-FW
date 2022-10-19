@@ -389,7 +389,7 @@ const rhythmArp_t major_7[] =
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 1},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 5},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
-    {.note = TRIPLET_EIGHTH_NOTE, .arp = 11},
+    {.note = TRIPLET_EIGHTH_NOTE, .arp = 12},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 5},
 };
@@ -399,7 +399,7 @@ const rhythmArp_t minor_7[] =
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 1},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 4},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
-    {.note = TRIPLET_EIGHTH_NOTE, .arp = 10},
+    {.note = TRIPLET_EIGHTH_NOTE, .arp = 11},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 4},
 };
@@ -409,7 +409,7 @@ const rhythmArp_t dom_7[] =
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 1},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 5},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
-    {.note = TRIPLET_EIGHTH_NOTE, .arp = 10},
+    {.note = TRIPLET_EIGHTH_NOTE, .arp = 11},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 8},
     {.note = TRIPLET_EIGHTH_NOTE, .arp = 4},
 };
@@ -1292,10 +1292,9 @@ void  plotBar(uint8_t yOffset)
         c555, 0);
 
     // Plot tick marks at each of the note boundaries
-    uint8_t tick;
-    for(tick = 0; tick < (scales[slideWhistle->scaleIdx].notesLen / 2) + 1; tick++)
+    for(uint8_t tick = 0; tick < (scales[slideWhistle->scaleIdx].notesLen / 2) + 1; tick++)
     {
-        uint8_t x = BAR_X_MARGIN + ( (tick * ((slideWhistle->disp->w - 1) - (BAR_X_MARGIN * 2))) /
+        int16_t x = BAR_X_MARGIN + ( (tick * ((slideWhistle->disp->w - 1) - (BAR_X_MARGIN * 2))) /
                                      (scales[slideWhistle->scaleIdx].notesLen / 2)) ;
         plotLine(slideWhistle->disp, x, yOffset - TICK_HEIGHT,
                  x, yOffset + TICK_HEIGHT,
