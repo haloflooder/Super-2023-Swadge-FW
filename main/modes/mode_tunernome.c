@@ -370,25 +370,35 @@ static const timeSignature tSigs[] =
     {.top = 3, .bottom = 4},
 };
 
-static const song_t metronome_primary =
+static const song_t metronome_quarter =
 {
     .notes =
     {
-        {A_4, METRONOME_CLICK_MS}
+        {B_5, METRONOME_CLICK_MS}
     },
     .numNotes = 1,
     .shouldLoop = false
 };
 
-static const song_t metronome_secondary =
+static const song_t metronome_eighth =
 {
     .notes =
     {
-        {A_3, METRONOME_CLICK_MS}
+        {F_SHARP_6, METRONOME_CLICK_MS}
     },
     .numNotes = 1,
     .shouldLoop = false
 };
+
+/*static const song_t metronome_sixteenth =
+{
+    .notes =
+    {
+        {D_SHARP_6, METRONOME_CLICK_MS}
+    },
+    .numNotes = 1,
+    .shouldLoop = false
+};*/
 
 /*============================================================================
  * Functions
@@ -1006,9 +1016,10 @@ void tunernomeMainLoop(int64_t elapsedUs)
                 const song_t* song;
                 led_t leds[NUM_LEDS] = {{0}};
 
+                // TODO: uncomment metronome_sixteenth and use it
                 if(0 == tunernome->beatCtr)
                 {
-                    song = &metronome_primary;
+                    song = &metronome_quarter;
                     for(int i = 0; i < NUM_LEDS; i++)
                     {
                         leds[i].r = 0x40;
@@ -1018,7 +1029,7 @@ void tunernomeMainLoop(int64_t elapsedUs)
                 }
                 else
                 {
-                    song = &metronome_secondary;
+                    song = &metronome_eighth;
                     for(int i = 0; i < 4; i++)
                     {
                         leds[fourLedFlashIdxs[i]].r = 0x40;
